@@ -1,4 +1,11 @@
 const Bot = require('./bot');
+const { scan } = require('./requests');
 
 const marsBot = new Bot();
-marsBot.confirmRegistration();
+const run = () => {
+  marsBot.confirmRegistration();
+
+  const nodes = scan();
+};
+
+run();

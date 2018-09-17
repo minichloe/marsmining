@@ -1,4 +1,4 @@
-const register = require('./register');
+const { register } = require('./requests');
 
 class Bot {
   constructor() {
@@ -12,21 +12,22 @@ class Bot {
   confirmRegistration() {
     if (!this.register) {
       console.log('Initializing bot...');
-      this.toggleActive();
-      register(this);
-      this.toggleActive();
+      this.initialize();
     } else this.printStatus();
   }
-  updateLocation(x, y) {
-    this.location = [x, y];
-  }
-  initialize(data) {
+  async initialize() {
+    this.toggleActive();
+    const data = await register();
+    this.toggleActive();
     this.register = true;
     const [x, y] = [data.Location.X, data.Location.Y];
     this.updateLocation(x, y);
     this.updateScore(data.Score);
     this.claims = data.Claims;
     this.printStatus();
+  }
+  updateLocation(x, y) {
+    this.location = [x, y];
   }
   toggleActive() {
     this.active = !this.active;
