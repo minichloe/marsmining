@@ -4,9 +4,13 @@
   "description": "Mining bot for Headlight",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Chloe Chong",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
 }
