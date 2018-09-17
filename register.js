@@ -1,11 +1,11 @@
 const axios = require('./axios');
 
-const register = async () => {
+const register = async bot => {
   try {
     const { data } = await axios.post('/register', {
       callsign: process.env.CALLSIGN,
     });
-    console.log(data);
+    bot.initialize(data.Status);
   } catch (err) {
     console.error(err);
   }

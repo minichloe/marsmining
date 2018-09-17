@@ -1,3 +1,4 @@
-const register = require('./register');
+const Bot = require('./bot');
 
-register();
+const marsBot = new Bot();
+marsBot.confirmRegistration();
