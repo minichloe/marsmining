@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export CALLSIGN='SierraEcho'
+
 if [ -z "$SERVER_HOST" ]
 then
   export SERVER_HOST="localhost"
