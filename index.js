@@ -76,5 +76,4 @@ const updateMap = (coordinates, radius = false) => {
   }
 };
 
-// setInterval(run, 1000);
 run();
