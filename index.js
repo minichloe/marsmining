@@ -15,7 +15,8 @@ const run = async () => {
     return;
   } else {
     // Check to see what unclaimed nodes are in the area
-    const nodes = await scan().filter(x => x.Claimed === false);
+    let nodes = await scan();
+    nodes = nodes.filter(x => x.Claimed === false);
     // If there is nothing, move the bot to 5 steps beyond the 5x5 radius to scan again
     if (!nodes.length) {
       updateMap(marsBot.location, true);
