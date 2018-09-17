@@ -76,4 +76,5 @@ const updateMap = (coordinates, radius = false) => {
   }
 };
 
-run();
+// Run the bot every half second
+setInterval(run, 500);
