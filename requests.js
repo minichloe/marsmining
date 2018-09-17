@@ -29,4 +29,19 @@ const scan = async () => {
   }
 };
 
-module.exports = { register, scan };
+const move = async (x, y) => {
+  try {
+    const { data } = await axios.post('/move', {
+      callsign: process.env.CALLSIGN,
+      x,
+      y,
+    });
+    return new Promise(resolve => {
+      resolve([data.Status.Location.X, data.Status.Location.Y]);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+module.exports = { register, scan, move };
