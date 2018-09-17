@@ -44,4 +44,17 @@ const move = async (x, y) => {
   }
 };
 
-module.exports = { register, scan, move };
+const claim = async () => {
+  try {
+    const { data } = await axios.post('/claim', {
+      callsign: process.env.CALLSIGN,
+    });
+    return new Promise(resolve => {
+      resolve(data);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+module.exports = { register, scan, move, claim };

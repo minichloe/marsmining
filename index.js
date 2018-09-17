@@ -1,5 +1,5 @@
 const Bot = require('./bot');
-const { scan, move } = require('./requests');
+const { scan, move, claim } = require('./requests');
 
 const marsBot = new Bot();
 const visited = new Map();
@@ -14,8 +14,8 @@ const run = async () => {
   if (marsBot.active) {
     return;
   } else {
-    // Check to see what nodes are in the area
-    const nodes = await scan();
+    // Check to see what unclaimed nodes are in the area
+    const nodes = await scan().filter(x => x.Claimed === false);
     // If there is nothing, move the bot to 5 steps beyond the 5x5 radius to scan again
     if (!nodes.length) {
       updateMap(marsBot.location, true);
@@ -25,12 +25,9 @@ const run = async () => {
       marsBot.updateLocation(x, y);
       marsBot.printStatus();
     } else {
-      console.log('Finding best node...');
-      const node = findBestNode(nodes);
-      if (node) {
-        console.log('Moving to chosen node...');
-        await moveToLocation([node.Location.X, node.Location.Y]);
-      }
+      // Claim nodes
+      const { Status, Nodes } = await claim();
+      console.log(Status, Nodes);
     }
   }
 };
@@ -62,24 +59,6 @@ const goToEdge = async location => {
     return [x, y];
   } catch (err) {
     console.error(err);
-  }
-};
-
-// Find unclaimed node with highest value
-const findBestNode = nodes => {
-  nodes = nodes.filter(x => x.Claimed === false);
-  if (!nodes.length) return null;
-  else if (nodes.length === 1) return nodes[0];
-  else {
-    let highestIndex = 0,
-      highestValue = nodes[0].Value;
-    nodes.forEach((x, i) => {
-      if (x.Value > highestValue) {
-        highestValue = x.Value;
-        highestIndex = i;
-      }
-    });
-    return nodes[highestIndex];
   }
 };
 
