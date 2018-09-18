@@ -27,8 +27,11 @@ const run = async () => {
       marsBot.printStatus();
     } else {
       // Claim nodes
-      const { Status, Nodes } = await claim();
-      console.log(Status, Nodes);
+      const res = []
+      nodes.forEach(x => {
+        const data = await claim(x.ID)
+        res.push(data)
+      })
     }
   }
 };
