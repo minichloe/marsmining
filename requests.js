@@ -44,10 +44,11 @@ const move = async (x, y) => {
   }
 };
 
-const claim = async () => {
+const claim = async node => {
   try {
     const { data } = await axios.post('/claim', {
       callsign: process.env.CALLSIGN,
+      node,
     });
     return new Promise(resolve => {
       resolve(data);
